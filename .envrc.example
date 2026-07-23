@@ -1,0 +1,7 @@
+# .envrc
+
+export POSTGRES_PG_BOUNCER=
+export POSTGRES_USER_VAL=
+export POSTGRES_PASS_VAL=
+export PGADMIN_EMAIL_VAL=
+export PGADMIN_PASS_VAL=

@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: mock-server
+  datasource:
+    url: ${POSTGRES_PG_BOUNCER}
+    username: ${POSTGRES_USER_VAL}
+    password: ${POSTGRES_PASS_VAL}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect

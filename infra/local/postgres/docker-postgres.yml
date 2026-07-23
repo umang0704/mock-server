@@ -1,0 +1,37 @@
+services:
+# Postgres database
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER_VAL}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS_VAL}
+      POSTGRES_DB: mock-server
+# PG Bouncer for connection multiplexing
+  pgbouncer:
+    image: edoburu/pgbouncer:latest
+    container_name: pgbouncer_service
+    ports:
+      - "6432:6432"  # Standard default port for PgBouncer
+    environment:
+      - DB_HOST=postgres_db
+      - DB_PORT=5432
+      - DB_USER=${POSTGRES_USER_VAL}
+      - DB_PASSWORD=${POSTGRES_PASS_VAL}
+      - DB_NAME=mock-server
+      - POOL_MODE=transaction  # Most common mode for Spring Boot/Microservices
+      - MAX_CLIENT_CONN=100
+      - DEFAULT_POOL_SIZE=20
+    depends_on:
+      - postgres
+# PG Admin
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_ui
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL_VAL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_EMAIL_VAL}
